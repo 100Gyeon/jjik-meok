@@ -16,11 +16,22 @@ const GlobalStyle = createGlobalStyle`
     margin: 0 8%;
     min-height: 100vh;
   }
+
+  html {
+    font-size: 62.5%;
+  }
+  * {
+    box-sizing: border-box;
+  }
   
   button {
     cursor: pointer;
     border: none;
     outline: none;
+  }
+
+  a {
+    text-decoration: none;
   }
 `;
 

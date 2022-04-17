@@ -1,5 +1,13 @@
+import GlobalStyle from 'components/common/GlobalStyle';
+import Router from 'json-server/lib/server/router';
+
 function App() {
-  return <div className="App"></div>;
+  return (
+    <>
+      <GlobalStyle />
+      <Router />
+    </>
+  );
 }
 
 export default App;
