@@ -1,5 +1,5 @@
 import GlobalStyle from 'components/common/GlobalStyle';
-import Router from 'json-server/lib/server/router';
+import Router from 'components/common/Router';
 
 function App() {
   return (
