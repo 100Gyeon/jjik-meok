@@ -17,6 +17,7 @@
     "recoil": "^0.7.2",
     "styled-components": "^5.3.5",
     "styled-reset": "^4.3.4",
+    "tesseract.js": "^2.1.5",
     "web-vitals": "^2.1.0"
   },
   "scripts": {
