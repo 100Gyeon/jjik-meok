@@ -3,7 +3,7 @@ import React from 'react';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import ScrollToTop from './ScrollToTop';
 
-const Router = () => {
+function Router() {
   return (
     <BrowserRouter>
       <ScrollToTop />
@@ -13,6 +13,6 @@ const Router = () => {
       </Routes>
     </BrowserRouter>
   );
-};
+}
 
 export default Router;
