@@ -34,7 +34,6 @@ const StyledHome = styled.div`
 `;
 
 const StyledDescription = styled.h1`
-  margin-top: 2rem;
   font-size: 2rem;
   line-height: 140%;
   text-align: center;
