@@ -1,4 +1,5 @@
 import { useState, useCallback, useEffect } from 'react';
+import styled from 'styled-components';
 import { createWorker } from 'tesseract.js';
 
 function Receipt() {
@@ -9,16 +10,14 @@ function Receipt() {
   const convertImageToText = useCallback(async () => {
     if (!receiptImage) return;
     await worker.load();
-    await worker.loadLanguage('eng+kor');
-    await worker.initialize('eng+kor');
+    await worker.loadLanguage('kor');
+    await worker.initialize('kor');
     const { data } = await worker.recognize(receiptImage);
     setTextResult(data.lines);
   }, [receiptImage, worker]);
 
   useEffect(() => {
-    if (receiptImage) {
-      convertImageToText();
-    }
+    if (receiptImage) convertImageToText();
   }, [receiptImage]);
 
   const handleReceiptImage = (e) => {
@@ -31,18 +30,38 @@ function Receipt() {
   };
 
   return (
-    <div>
+    <StyledReceipt>
       <h1>영수증에서 재료를 찾아볼까요?</h1>
       <input type="file" accept="image/*" onChange={handleReceiptImage} />
       <div>
         {receiptImage && <img src={URL.createObjectURL(receiptImage)} alt="영수증" />}
         {textResult &&
           textResult.map((line, idx) => {
-            return <div key={idx}>{line.text}</div>;
+            return <StyledResult key={idx}>{line.text}</StyledResult>;
           })}
       </div>
-    </div>
+    </StyledReceipt>
   );
 }
 
 export default Receipt;
+
+const StyledReceipt = styled.div`
+  min-height: calc(100vh - 8rem);
+
+  h1 {
+    font-size: 2rem;
+    line-height: 120%;
+    margin-bottom: 2rem;
+  }
+
+  img {
+    width: 100%;
+    margin-bottom: 2rem;
+  }
+`;
+
+const StyledResult = styled.div`
+  font-size: 1.4rem;
+  line-height: 120%;
+`;

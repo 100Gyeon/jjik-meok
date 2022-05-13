@@ -44,7 +44,7 @@ function Refrigerator() {
       </h1>
       <div>
         <input onChange={handleChange} type="file" accept="image/*" />
-        {file && <StyledUserImage id="userImage" src={file} />}
+        {file && <img id="userImage" src={file} />}
       </div>
       {loading ? (
         <div>결과 로딩 중</div>
@@ -72,11 +72,11 @@ const StyledRefrigerator = styled.div`
     line-height: 120%;
     margin-bottom: 2rem;
   }
-`;
 
-const StyledUserImage = styled.img`
-  width: 100%;
-  margin-bottom: 2rem;
+  img {
+    width: 100%;
+    margin-bottom: 2rem;
+  }
 `;
 
 const StyledResult = styled.div`
