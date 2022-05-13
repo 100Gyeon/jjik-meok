@@ -11,10 +11,12 @@ const GlobalStyle = createGlobalStyle`
   }
 
   #root {
-    display: flex;
-    flex-direction: column;
-    margin: 0 8%;
+    display: grid;
+    align-items: center;
+    max-width: 420px;
     min-height: 100vh;
+    margin: 0 auto;
+    padding: 2rem;
   }
 
   html {
@@ -24,6 +26,10 @@ const GlobalStyle = createGlobalStyle`
   * {
     box-sizing: border-box;
   }
+
+  body, button {
+    font-family: 'Spoqa Han Sans Neo', 'sans-serif'; 
+  }
   
   button {
     cursor: pointer;
@@ -31,8 +37,9 @@ const GlobalStyle = createGlobalStyle`
     outline: none;
   }
 
-  a {
+  a, a:visited {
     text-decoration: none;
+    color: black;
   }
 `;
 
