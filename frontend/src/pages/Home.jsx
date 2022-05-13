@@ -1,58 +1,91 @@
-import React, { useState } from 'react';
-import * as tmImage from '@teachablemachine/image';
+import { Link } from 'react-router-dom';
+import styled from 'styled-components';
+import Lottie from 'lottie-react';
+import { lottieChoice, icReceipt, icRefrigerator } from 'assets';
 
 function Home() {
-  const URL = 'https://teachablemachine.withgoogle.com/models/N3-pwXGHa/';
-  const modelURL = URL + 'model.json';
-  const metadataURL = URL + 'metadata.json';
-
-  const [file, setFile] = useState('');
-  const [result, setResult] = useState('');
-  const [loading, setLoading] = useState(false);
-  const [ingredientList, setIngredientList] = useState([]);
-
-  const predict = async () => {
-    const model = await tmImage.load(modelURL, metadataURL);
-    const tempImage = document.getElementById('userImage');
-    const prediction = await model.predict(tempImage, false);
-
-    prediction.sort((a, b) => parseFloat(b.probability) - parseFloat(a.probability));
-    setIngredientList(prediction);
-    setLoading(false);
-    setResult(prediction[0].className);
-  };
-
-  const handleChange = (e) => {
-    const reader = new FileReader();
-    const targetFile = e.target.files[0];
-
-    setLoading(true);
-    setIngredientList([]);
-    setResult('');
-
-    if (targetFile) {
-      reader.onload = () => setFile(reader.result.toString());
-      reader.readAsDataURL(targetFile);
-      predict();
-    }
-  };
-
   return (
-    <div>
-      <h1>냉장고 안에 있는 재료를 찾아볼까요?</h1>
-      <div>
-        <input onChange={handleChange} type="file" accept="image/*" />
-        {file && <img id="userImage" src={file} />}
-      </div>
-      {loading && <div>결과 로딩 중</div>}
-      {result && (
-        <>
-          <div>{ingredientList[0].className}</div>
-          <div>{`${(ingredientList[0].probability * 100).toFixed(1)}%`}</div>
-        </>
-      )}
-    </div>
+    <StyledHome>
+      <StyledDescription>
+        어떤 사진을 업로드해서
+        <br />
+        내가 가진 재료를 인식할까요?
+      </StyledDescription>
+      <Lottie animationData={lottieChoice} />
+      <StyledLinkContainer>
+        <StyledLink to="/refrigerator">
+          <img src={icRefrigerator} />
+          <div>냉장고</div>
+        </StyledLink>
+        <StyledLink to="/receipt">
+          <img src={icReceipt} />
+          <div>영수증</div>
+        </StyledLink>
+      </StyledLinkContainer>
+    </StyledHome>
   );
 }
 
 export default Home;
+
+const StyledHome = styled.div`
+  margin: 0 auto;
+  word-break: keep-all;
+`;
+
+const StyledDescription = styled.h1`
+  margin-top: 2rem;
+  font-size: 2rem;
+  line-height: 140%;
+  text-align: center;
+`;
+
+const StyledLinkContainer = styled.div`
+  display: flex;
+  justify-content: center;
+  gap: 1.5rem;
+
+  & > a {
+    font-size: 1.6rem;
+    width: 100%;
+    padding: 1.5rem 1rem;
+    border-radius: 1rem;
+  }
+
+  & > a:first-of-type {
+    background-color: #dde6f4;
+    color: #2f7ded;
+  }
+
+  & > a:last-of-type {
+    background-color: #2f7ded;
+    color: white;
+  }
+`;
+
+const StyledLink = styled(Link)`
+  width: fit-content;
+  padding: 2rem;
+  border-radius: 1rem;
+
+  &:first-of-type {
+    background-color: #dde6f4;
+    color: #2f7ded;
+  }
+
+  &:last-of-type {
+    background-color: #2f7ded;
+    color: white;
+  }
+
+  img {
+    width: 6rem;
+    height: 6rem;
+  }
+
+  div {
+    text-align: right;
+    padding-right: 1rem;
+    font-size: 1.6rem;
+  }
+`;
