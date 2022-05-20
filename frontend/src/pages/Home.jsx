@@ -69,12 +69,12 @@ const StyledLink = styled(Link)`
 
   &:first-of-type {
     background-color: #dde6f4;
-    color: #2f7ded;
+    color: #0064ff;
   }
 
   &:last-of-type {
-    background-color: #2f7ded;
-    color: white;
+    background-color: #0064ff;
+    color: fff;
   }
 
   img {
