@@ -4,6 +4,7 @@ import { createWorker } from 'tesseract.js';
 import Cropper from 'react-cropper';
 import 'cropperjs/dist/cropper.css';
 import styled from 'styled-components';
+import IngredientList from 'components/receipt/IngredientList';
 import UserChoice from 'components/receipt/UserChoice';
 
 function Receipt() {
@@ -25,15 +26,6 @@ function Receipt() {
     setLoading(false);
   };
 
-  const handleReceiptImage = (e) => {
-    if (e.target.files[0]) {
-      setReceiptImage(URL.createObjectURL(e.target.files[0]));
-    } else {
-      setReceiptImage(null);
-      setTextResult('');
-    }
-  };
-
   const onCrop = () => {
     const imageElement = cropperRef?.current;
     const cropper = imageElement?.cropper;
@@ -43,7 +35,7 @@ function Receipt() {
   return (
     <StyledReceipt>
       <h1>영수증에서 재료를 찾아볼까요?</h1>
-      <input type="file" accept="image/*" onChange={(e) => handleReceiptImage(e)} />
+      <input type="file" accept="image/*" onChange={(e) => setReceiptImage(URL.createObjectURL(e.target.files[0]))} />
       {receiptImage && <Cropper src={receiptImage} crop={onCrop} ref={cropperRef} />}
       {croppedImage && (
         <button onClick={() => convertImageToText()} disabled={loading}>
@@ -55,12 +47,13 @@ function Receipt() {
           <HashLoader color={'#3182f7'} />
         </StyledLoaderWrapper>
       ) : (
-        textResult &&
-        textResult.map((line, idx) => {
-          return <StyledResult key={idx}>{line.text.replace(/[0-9]/g, '').replace(/\s/g, '')}</StyledResult>;
-        })
+        textResult && (
+          <>
+            <IngredientList list={textResult} />
+            <UserChoice />
+          </>
+        )
       )}
-      {textResult && <UserChoice />}
     </StyledReceipt>
   );
 }
@@ -102,9 +95,4 @@ const StyledLoaderWrapper = styled.div`
   top: 50%;
   left: 50%;
   transform: translateX(-50%);
-`;
-
-const StyledResult = styled.div`
-  font-size: 1.4rem;
-  line-height: 120%;
 `;

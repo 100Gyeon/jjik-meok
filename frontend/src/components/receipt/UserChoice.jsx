@@ -8,14 +8,14 @@ function UserChoice() {
         <div>
           <img src={icEyes} />
         </div>
-        <div>재료가 정확하지 않아요.</div>
+        <div>재료 인식이 정확하지 않아요</div>
         <img src={icArrowRight} />
       </div>
       <div>
         <div>
           <img src={icHit} />
         </div>
-        <div>레시피 추천받으러 갈래요.</div>
+        <div>메뉴 추천받고 레시피 볼래요</div>
         <img src={icArrowRight} />
       </div>
     </StyledUserChoice>
@@ -25,7 +25,7 @@ function UserChoice() {
 export default UserChoice;
 
 const StyledUserChoice = styled.div`
-  border-top: 0.5rem solid #efefef;
+  border-top: 0.8rem solid #efefef;
   margin-top: 2rem;
   font-size: 1.6rem;
 
