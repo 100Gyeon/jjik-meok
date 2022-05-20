@@ -12,6 +12,7 @@
     "json-server": "^0.17.0",
     "lottie-react": "^2.2.1",
     "react": "^18.0.0",
+    "react-cropper": "^2.1.8",
     "react-dom": "^18.0.0",
     "react-router-dom": "^6.3.0",
     "react-scripts": "5.0.1",
