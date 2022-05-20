@@ -4,6 +4,7 @@ import { createWorker } from 'tesseract.js';
 import Cropper from 'react-cropper';
 import 'cropperjs/dist/cropper.css';
 import styled from 'styled-components';
+import UserChoice from 'components/receipt/UserChoice';
 
 function Receipt() {
   const worker = createWorker();
@@ -59,6 +60,7 @@ function Receipt() {
           return <StyledResult key={idx}>{line.text.replace(/[0-9]/g, '').replace(/\s/g, '')}</StyledResult>;
         })
       )}
+      {textResult && <UserChoice />}
     </StyledReceipt>
   );
 }
@@ -75,7 +77,7 @@ const StyledReceipt = styled.div`
     margin-bottom: 2rem;
   }
 
-  img {
+  & > img {
     width: 100%;
     margin-bottom: 2rem;
   }
@@ -91,7 +93,7 @@ const StyledReceipt = styled.div`
   }
 
   button:disabled {
-    background-color: #f3f4f6;
+    background-color: #c1d6f3;
   }
 `;
 
