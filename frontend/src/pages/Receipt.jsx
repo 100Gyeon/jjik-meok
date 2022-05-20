@@ -1,4 +1,5 @@
 import { useState, useRef } from 'react';
+import { HashLoader } from 'react-spinners';
 import { createWorker } from 'tesseract.js';
 import Cropper from 'react-cropper';
 import 'cropperjs/dist/cropper.css';
@@ -10,14 +11,17 @@ function Receipt() {
   const [receiptImage, setReceiptImage] = useState(null);
   const [croppedImage, setCroppedImage] = useState(null);
   const [textResult, setTextResult] = useState('');
+  const [loading, setLoading] = useState(false);
 
   const convertImageToText = async () => {
     if (!croppedImage) return;
+    setLoading(true);
     await worker.load();
     await worker.loadLanguage('kor');
     await worker.initialize('kor');
     const { data } = await worker.recognize(croppedImage);
     setTextResult(data.lines);
+    setLoading(false);
   };
 
   const handleReceiptImage = (e) => {
@@ -40,11 +44,21 @@ function Receipt() {
       <h1>영수증에서 재료를 찾아볼까요?</h1>
       <input type="file" accept="image/*" onChange={(e) => handleReceiptImage(e)} />
       {receiptImage && <Cropper src={receiptImage} crop={onCrop} ref={cropperRef} />}
-      {croppedImage && <button onClick={() => convertImageToText()}>이미지 자르기</button>}
-      {textResult &&
+      {croppedImage && (
+        <button onClick={() => convertImageToText()} disabled={loading}>
+          재료 찾아내기
+        </button>
+      )}
+      {loading ? (
+        <StyledLoaderWrapper>
+          <HashLoader color={'#3182f7'} />
+        </StyledLoaderWrapper>
+      ) : (
+        textResult &&
         textResult.map((line, idx) => {
           return <StyledResult key={idx}>{line.text.replace(/[0-9]/g, '').replace(/\s/g, '')}</StyledResult>;
-        })}
+        })
+      )}
     </StyledReceipt>
   );
 }
@@ -71,10 +85,21 @@ const StyledReceipt = styled.div`
     width: 100%;
     padding: 1.8rem 0;
     border-radius: 1.6rem;
-    background-color: #0064ff;
+    background-color: #3182f7;
     color: #fff;
     font-size: 1.4rem;
   }
+
+  button:disabled {
+    background-color: #f3f4f6;
+  }
+`;
+
+const StyledLoaderWrapper = styled.div`
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translateX(-50%);
 `;
 
 const StyledResult = styled.div`
