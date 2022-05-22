@@ -1,5 +1,6 @@
-import { icArrowRight, icEyes, icHit } from 'assets';
+import { Link } from 'react-router-dom';
 import styled from 'styled-components';
+import { icArrowRight, icEyes, icHit } from 'assets';
 
 function UserChoice() {
   return (
@@ -11,13 +12,13 @@ function UserChoice() {
         <div>재료 인식이 정확하지 않아요</div>
         <img src={icArrowRight} />
       </div>
-      <div>
+      <Link to="/recipe">
         <div>
           <img src={icHit} />
         </div>
         <div>메뉴 추천받고 레시피 볼래요</div>
         <img src={icArrowRight} />
-      </div>
+      </Link>
     </StyledUserChoice>
   );
 }
@@ -30,6 +31,11 @@ const StyledUserChoice = styled.div`
   font-size: 1.6rem;
 
   & > div {
+    cursor: pointer;
+  }
+
+  & > div,
+  & > a {
     display: flex;
     align-items: center;
     gap: 1rem;
