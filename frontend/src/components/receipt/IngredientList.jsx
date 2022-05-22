@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 
-function Ingredient({ list }) {
+function IngredientList({ list }) {
   const reg = /[^ㄱ-힣]/g;
   const filteredList = list
     .map((item) => {
@@ -9,20 +9,22 @@ function Ingredient({ list }) {
     .filter((item) => item.length !== 0);
 
   return (
-    <StyledIngredient>
+    <StyledIngredientList>
       <h2>내가 가진 재료</h2>
       <ul>
-        {filteredList.map((item, idx) => (
-          <li key={idx}>{item}</li>
-        ))}
+        {filteredList.length ? (
+          filteredList.map((item, idx) => <li key={idx}>{item}</li>)
+        ) : (
+          <div>재료를 인식하지 못했어요</div>
+        )}
       </ul>
-    </StyledIngredient>
+    </StyledIngredientList>
   );
 }
 
-export default Ingredient;
+export default IngredientList;
 
-const StyledIngredient = styled.div`
+const StyledIngredientList = styled.div`
   border-top: 0.8rem solid #efefef;
   font-size: 1.6rem;
 
