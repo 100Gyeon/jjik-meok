@@ -5,15 +5,15 @@ import Cropper from 'react-cropper';
 import 'cropperjs/dist/cropper.css';
 import styled from 'styled-components';
 import Header from 'components/common/Header';
+import UserChoice from 'components/common/UserChoice';
 import IngredientList from 'components/receipt/IngredientList';
-import UserChoice from 'components/receipt/UserChoice';
 
 function Receipt() {
   const worker = createWorker();
   const cropperRef = useRef(null);
   const [receiptImage, setReceiptImage] = useState(null);
   const [croppedImage, setCroppedImage] = useState(null);
-  const [textResult, setTextResult] = useState('');
+  const [resultList, setResultList] = useState(null);
   const [loading, setLoading] = useState(false);
 
   const convertImageToText = async () => {
@@ -23,7 +23,7 @@ function Receipt() {
     await worker.loadLanguage('kor');
     await worker.initialize('kor');
     const { data } = await worker.recognize(croppedImage);
-    setTextResult(data.lines);
+    setResultList(data.lines);
     setLoading(false);
   };
 
@@ -49,9 +49,9 @@ function Receipt() {
           <HashLoader color={'#3182f7'} />
         </StyledLoaderWrapper>
       ) : (
-        textResult && (
+        resultList && (
           <>
-            <IngredientList list={textResult} />
+            <IngredientList list={resultList} />
             <UserChoice />
           </>
         )
@@ -64,7 +64,7 @@ export default Receipt;
 
 const StyledReceipt = styled.div`
   width: 100%;
-  min-height: calc(100vh - 8rem);
+  min-height: calc(100vh - 4rem);
 
   h1 {
     font-size: 2rem;
