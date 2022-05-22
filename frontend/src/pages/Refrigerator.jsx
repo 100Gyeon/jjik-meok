@@ -1,8 +1,9 @@
 import React, { useState } from 'react';
 import * as tmImage from '@teachablemachine/image';
-import Header from 'components/common/Header';
-import styled from 'styled-components';
 import { HashLoader } from 'react-spinners';
+import Header from 'components/common/Header';
+import UserChoice from 'components/common/UserChoice';
+import styled from 'styled-components';
 
 function Refrigerator() {
   const URL = 'https://teachablemachine.withgoogle.com/models/N3-pwXGHa/';
@@ -19,7 +20,7 @@ function Refrigerator() {
     const prediction = await model.predict(tempImage, false);
 
     prediction.sort((a, b) => parseFloat(b.probability) - parseFloat(a.probability));
-    setIngredientList(prediction.filter((ingredient) => ingredient.probability * 100 > 50));
+    setIngredientList(prediction.filter((ingredient) => ingredient.probability * 100 >= 30));
     setLoading(false);
   };
 
@@ -50,16 +51,24 @@ function Refrigerator() {
         {file && <img id="userImage" src={file} />}
       </div>
       {loading ? (
-        <HashLoader color={'#3182f7'} />
+        <StyledLoaderWrapper>
+          <HashLoader color={'#3182f7'} />
+        </StyledLoaderWrapper>
       ) : (
-        <StyledResult>
-          {ingredientList.map(({ className, probability }) => (
-            <div key={className}>
-              <span>{className}</span>
-              <span>{`${(probability * 100).toFixed(1)}%`}</span>
-            </div>
-          ))}
-        </StyledResult>
+        file && (
+          <StyledResult>
+            {ingredientList.length ? (
+              <>
+                {ingredientList.map(({ className, probability }) => (
+                  <div key={className}>{`${className} ${(probability * 100).toFixed(1)}%`}</div>
+                ))}
+                <UserChoice />
+              </>
+            ) : (
+              <div>재료를 인식하지 못했어요</div>
+            )}
+          </StyledResult>
+        )
       )}
     </StyledRefrigerator>
   );
@@ -68,7 +77,7 @@ function Refrigerator() {
 export default Refrigerator;
 
 const StyledRefrigerator = styled.div`
-  min-height: calc(100vh - 8rem);
+  min-height: calc(100vh - 4rem);
 
   h1 {
     font-size: 2rem;
@@ -76,18 +85,22 @@ const StyledRefrigerator = styled.div`
     margin-bottom: 2rem;
   }
 
-  & > img {
+  & > div > img {
     width: 100%;
     margin-bottom: 2rem;
   }
 `;
 
 const StyledResult = styled.div`
-  font-size: 1.4rem;
-  div + div {
-    margin-top: 1rem;
+  font-size: 1.6rem;
+  div {
+    margin-bottom: 1rem;
   }
-  span + span {
-    margin-left: 0.5rem;
-  }
+`;
+
+const StyledLoaderWrapper = styled.div`
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translateX(-50%);
 `;
