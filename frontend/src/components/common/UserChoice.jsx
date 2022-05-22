@@ -39,7 +39,7 @@ const StyledUserChoice = styled.div`
     display: flex;
     align-items: center;
     gap: 1rem;
-    padding-top: 2rem;
+    margin-top: 2rem;
 
     div:first-child {
       border-radius: 0.8rem;
