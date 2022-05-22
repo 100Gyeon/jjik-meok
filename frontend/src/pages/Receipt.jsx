@@ -4,6 +4,7 @@ import { createWorker } from 'tesseract.js';
 import Cropper from 'react-cropper';
 import 'cropperjs/dist/cropper.css';
 import styled from 'styled-components';
+import Header from 'components/common/Header';
 import IngredientList from 'components/receipt/IngredientList';
 import UserChoice from 'components/receipt/UserChoice';
 
@@ -34,6 +35,7 @@ function Receipt() {
 
   return (
     <StyledReceipt>
+      <Header />
       <h1>영수증에서 재료를 찾아볼까요?</h1>
       <input type="file" accept="image/*" onChange={(e) => setReceiptImage(URL.createObjectURL(e.target.files[0]))} />
       {receiptImage && <Cropper src={receiptImage} crop={onCrop} ref={cropperRef} />}
@@ -66,7 +68,6 @@ const StyledReceipt = styled.div`
 
   h1 {
     font-size: 2rem;
-    line-height: 120%;
     margin-bottom: 2rem;
   }
 
@@ -75,7 +76,7 @@ const StyledReceipt = styled.div`
     margin-bottom: 2rem;
   }
 
-  button {
+  & > button {
     margin: 2rem 0;
     width: 100%;
     padding: 1.8rem 0;

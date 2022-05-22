@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
-import styled from 'styled-components';
 import * as tmImage from '@teachablemachine/image';
+import Header from 'components/common/Header';
+import styled from 'styled-components';
+import { HashLoader } from 'react-spinners';
 
 function Refrigerator() {
   const URL = 'https://teachablemachine.withgoogle.com/models/N3-pwXGHa/';
@@ -37,6 +39,7 @@ function Refrigerator() {
 
   return (
     <StyledRefrigerator>
+      <Header />
       <h1>
         냉장고 안에 있는
         <br />
@@ -47,7 +50,7 @@ function Refrigerator() {
         {file && <img id="userImage" src={file} />}
       </div>
       {loading ? (
-        <div>결과 로딩 중</div>
+        <HashLoader color={'#3182f7'} />
       ) : (
         <StyledResult>
           {ingredientList.map(({ className, probability }) => (
@@ -69,11 +72,11 @@ const StyledRefrigerator = styled.div`
 
   h1 {
     font-size: 2rem;
-    line-height: 120%;
+    line-height: 140%;
     margin-bottom: 2rem;
   }
 
-  img {
+  & > img {
     width: 100%;
     margin-bottom: 2rem;
   }
