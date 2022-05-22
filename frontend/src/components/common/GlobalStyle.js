@@ -16,7 +16,7 @@ const GlobalStyle = createGlobalStyle`
     max-width: 42rem;
     min-height: 100vh;
     margin: 0 auto;
-    padding: 4rem 2rem;
+    padding: 2rem;
   }
 
   html {
