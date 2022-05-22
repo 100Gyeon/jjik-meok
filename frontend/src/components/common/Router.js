@@ -5,6 +5,7 @@ import Home from 'pages/Home';
 import Refrigerator from 'pages/Refrigerator';
 import Receipt from 'pages/Receipt';
 import Recipe from 'pages/Recipe';
+import Error404 from 'pages/Error404';
 
 function Router() {
   return (
@@ -15,7 +16,7 @@ function Router() {
         <Route path="/refrigerator" element={<Refrigerator />} />
         <Route path="/receipt" element={<Receipt />} />
         <Route path="/recipe" element={<Recipe />} />
-        <Route path="/*" element={<p>Page Not Found</p>} />
+        <Route path="/*" element={<Error404 />} />
       </Routes>
     </BrowserRouter>
   );
