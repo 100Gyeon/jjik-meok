@@ -13,7 +13,7 @@ const GlobalStyle = createGlobalStyle`
   #root {
     display: grid;
     align-items: center;
-    max-width: 420px;
+    max-width: 42rem;
     min-height: 100vh;
     margin: 0 auto;
     padding: 4rem 2rem;
