@@ -1,23 +1,32 @@
-import { icDelete } from 'assets';
+import { useState } from 'react';
 import styled from 'styled-components';
+import { icDelete } from 'assets';
 
 function IngredientList({ list }) {
+  const [finalList, setFinalList] = useState(list);
+
   return (
     <StyledIngredientList>
       <h2>내가 가진 재료</h2>
       <ul>
-        {list.length ? (
-          list.map((item, idx) => (
+        {finalList.length ? (
+          finalList.map((item, idx) => (
             <li key={idx}>
               {item}
-              <button onClick={() => console.log('x')} />
+              <button
+                onClick={() => {
+                  const tempList = [...finalList];
+                  tempList.splice(idx, 1);
+                  setFinalList(tempList);
+                }}
+              />
             </li>
           ))
         ) : (
           <div>재료를 인식하지 못했어요</div>
         )}
       </ul>
-      {list.length && <h3>* 원하지 않거나 인식이 부정확한 재료는 x 버튼을 눌러 삭제할 수 있어요.</h3>}
+      {finalList.length > 0 && <h3>* 원하지 않거나 인식이 부정확한 재료는 x 버튼을 눌러 삭제할 수 있어요.</h3>}
     </StyledIngredientList>
   );
 }
