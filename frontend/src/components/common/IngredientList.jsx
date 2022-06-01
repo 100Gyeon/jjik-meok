@@ -1,12 +1,22 @@
+import { useEffect, useState } from 'react';
 import styled from 'styled-components';
 
-function IngredientList({ list }) {
-  const reg = /[^ㄱ-힣]/g;
-  const filteredList = list
-    .map((item) => {
-      return item.text.replace(reg, '');
-    })
-    .filter((item) => item.length !== 0);
+function IngredientList({ type, list }) {
+  const [filteredList, setFilteredList] = useState([]);
+
+  useEffect(() => {
+    if (type === 'refrigerator') {
+      setFilteredList(list.map((item) => item.className));
+    } else if (type === 'receipt') {
+      setFilteredList(
+        list
+          .map((item) => {
+            return item.text.replace(/[^ㄱ-힣]/g, '');
+          })
+          .filter((item) => item.length !== 0),
+      );
+    }
+  }, [list, type]);
 
   return (
     <StyledIngredientList>

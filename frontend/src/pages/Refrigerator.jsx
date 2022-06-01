@@ -2,8 +2,9 @@ import React, { useState } from 'react';
 import * as tmImage from '@teachablemachine/image';
 import { HashLoader } from 'react-spinners';
 import Header from 'components/common/Header';
-import UserChoice from 'components/common/UserChoice';
 import styled from 'styled-components';
+import IngredientList from 'components/common/IngredientList';
+import UserChoice from 'components/common/UserChoice';
 
 function Refrigerator() {
   const URL = 'https://teachablemachine.withgoogle.com/models/N3-pwXGHa/';
@@ -22,6 +23,7 @@ function Refrigerator() {
     prediction.sort((a, b) => parseFloat(b.probability) - parseFloat(a.probability));
     setIngredientList(prediction.filter((ingredient) => ingredient.probability * 100 >= 30));
     setLoading(false);
+    console.log(ingredientList);
   };
 
   const handleChange = (e) => {
@@ -57,16 +59,8 @@ function Refrigerator() {
       ) : (
         file && (
           <StyledResult>
-            {ingredientList.length ? (
-              <>
-                {ingredientList.map(({ className, probability }) => (
-                  <div key={className}>{`${className} ${(probability * 100).toFixed(1)}%`}</div>
-                ))}
-                <UserChoice />
-              </>
-            ) : (
-              <div>재료를 인식하지 못했어요</div>
-            )}
+            <IngredientList type="refrigerator" list={ingredientList.filter((item) => item.className)} />
+            <UserChoice />
           </StyledResult>
         )
       )}

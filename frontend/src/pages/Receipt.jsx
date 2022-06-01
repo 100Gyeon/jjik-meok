@@ -6,7 +6,7 @@ import 'cropperjs/dist/cropper.css';
 import styled from 'styled-components';
 import Header from 'components/common/Header';
 import UserChoice from 'components/common/UserChoice';
-import IngredientList from 'components/receipt/IngredientList';
+import IngredientList from 'components/common/IngredientList';
 
 function Receipt() {
   const worker = createWorker();
@@ -51,7 +51,7 @@ function Receipt() {
       ) : (
         resultList && (
           <>
-            <IngredientList list={resultList} />
+            <IngredientList type="receipt" list={resultList} />
             <UserChoice />
           </>
         )
