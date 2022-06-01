@@ -5,7 +5,6 @@ import Cropper from 'react-cropper';
 import 'cropperjs/dist/cropper.css';
 import styled from 'styled-components';
 import Header from 'components/common/Header';
-import UserChoice from 'components/common/UserChoice';
 import IngredientList from 'components/common/IngredientList';
 
 function Receipt() {
@@ -50,13 +49,10 @@ function Receipt() {
         </StyledLoaderWrapper>
       ) : (
         resultList && (
-          <>
-            <IngredientList
-              type="receipt"
-              list={resultList.map((item) => item.text.replace(/[^ㄱ-힣]/g, '')).filter((item) => item.length !== 0)}
-            />
-            <UserChoice />
-          </>
+          <IngredientList
+            type="receipt"
+            list={resultList.map((item) => item.text.replace(/[^ㄱ-힣]/g, '')).filter((item) => item.length !== 0)}
+          />
         )
       )}
     </StyledReceipt>

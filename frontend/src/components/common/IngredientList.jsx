@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import styled from 'styled-components';
+import UserChoice from './UserChoice';
 import { icDelete } from 'assets';
 
 function IngredientList({ list }) {
@@ -8,6 +9,7 @@ function IngredientList({ list }) {
   return (
     <StyledIngredientList>
       <h2>내가 가진 재료</h2>
+      {finalList.length > 0 && <h3>* 원하지 않거나 인식이 부정확한 재료는 x 버튼을 눌러 삭제할 수 있어요.</h3>}
       <ul>
         {finalList.length ? (
           finalList.map((item, idx) => (
@@ -26,7 +28,7 @@ function IngredientList({ list }) {
           <div>재료를 인식하지 못했어요</div>
         )}
       </ul>
-      {finalList.length > 0 && <h3>* 원하지 않거나 인식이 부정확한 재료는 x 버튼을 눌러 삭제할 수 있어요.</h3>}
+      <UserChoice ingredientList={finalList} />
     </StyledIngredientList>
   );
 }
@@ -38,7 +40,7 @@ const StyledIngredientList = styled.div`
   font-size: 1.6rem;
 
   h2 {
-    padding: 2rem 0;
+    margin-top: 2rem;
     font-size: 1.8rem;
     font-weight: 500;
   }
@@ -46,7 +48,8 @@ const StyledIngredientList = styled.div`
   h3 {
     font-size: 1.2rem;
     line-height: 2rem;
-    margin-top: 3rem;
+    margin-top: 1rem;
+    margin-bottom: 2rem;
     word-break: keep-all;
     color: #939aa5;
   }
@@ -70,6 +73,10 @@ const StyledIngredientList = styled.div`
         background: no-repeat center/cover url(${icDelete});
         margin-left: 0.5rem;
       }
+    }
+
+    div {
+      margin-top: 2rem;
     }
   }
 `;

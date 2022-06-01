@@ -59,7 +59,6 @@ function Refrigerator() {
         file && (
           <StyledResult>
             <IngredientList type="refrigerator" list={ingredientList.map((item) => item.className)} />
-            <UserChoice />
           </StyledResult>
         )
       )}
