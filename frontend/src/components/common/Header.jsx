@@ -18,8 +18,4 @@ export default Header;
 
 const StyledHeader = styled.div`
   margin-bottom: 2rem;
-
-  button {
-    background-color: transparent;
-  }
 `;
