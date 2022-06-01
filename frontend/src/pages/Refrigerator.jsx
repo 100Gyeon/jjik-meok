@@ -4,7 +4,6 @@ import { HashLoader } from 'react-spinners';
 import Header from 'components/common/Header';
 import styled from 'styled-components';
 import IngredientList from 'components/common/IngredientList';
-import UserChoice from 'components/common/UserChoice';
 
 function Refrigerator() {
   const URL = 'https://teachablemachine.withgoogle.com/models/N3-pwXGHa/';
