@@ -23,7 +23,6 @@ function Refrigerator() {
     prediction.sort((a, b) => parseFloat(b.probability) - parseFloat(a.probability));
     setIngredientList(prediction.filter((ingredient) => ingredient.probability * 100 >= 30));
     setLoading(false);
-    console.log(ingredientList);
   };
 
   const handleChange = (e) => {
@@ -59,7 +58,7 @@ function Refrigerator() {
       ) : (
         file && (
           <StyledResult>
-            <IngredientList type="refrigerator" list={ingredientList.filter((item) => item.className)} />
+            <IngredientList type="refrigerator" list={ingredientList.map((item) => item.className)} />
             <UserChoice />
           </StyledResult>
         )

@@ -51,7 +51,10 @@ function Receipt() {
       ) : (
         resultList && (
           <>
-            <IngredientList type="receipt" list={resultList} />
+            <IngredientList
+              type="receipt"
+              list={resultList.map((item) => item.text.replace(/[^ㄱ-힣]/g, '')).filter((item) => item.length !== 0)}
+            />
             <UserChoice />
           </>
         )
