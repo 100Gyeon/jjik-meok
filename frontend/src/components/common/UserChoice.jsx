@@ -12,7 +12,7 @@ function UserChoice({ ingredientList }) {
         <div>재료 인식이 정확하지 않아요</div>
         <img src={icArrowRight} />
       </div>
-      <Link to="/recipe" state={{ ingredientList }}>
+      <Link to="/menu" state={{ ingredientList }}>
         <div>
           <img src={icHit} />
         </div>
