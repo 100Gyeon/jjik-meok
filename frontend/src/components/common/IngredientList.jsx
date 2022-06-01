@@ -28,7 +28,7 @@ function IngredientList({ list }) {
           <div>재료를 인식하지 못했어요</div>
         )}
       </ul>
-      <UserChoice ingredientList={finalList} />
+      {finalList.length > 0 && <UserChoice ingredientList={finalList} />}
     </StyledIngredientList>
   );
 }
