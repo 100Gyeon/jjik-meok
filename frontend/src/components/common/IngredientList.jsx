@@ -1,10 +1,23 @@
+import { icDelete } from 'assets';
 import styled from 'styled-components';
 
 function IngredientList({ list }) {
   return (
     <StyledIngredientList>
       <h2>내가 가진 재료</h2>
-      <ul>{list.length ? list.map((item, idx) => <li key={idx}>{item}</li>) : <div>재료를 인식하지 못했어요</div>}</ul>
+      <ul>
+        {list.length ? (
+          list.map((item, idx) => (
+            <li key={idx}>
+              {item}
+              <button onClick={() => console.log('x')} />
+            </li>
+          ))
+        ) : (
+          <div>재료를 인식하지 못했어요</div>
+        )}
+      </ul>
+      {list.length && <h3>* 원하지 않거나 인식이 부정확한 재료는 x 버튼을 눌러 삭제할 수 있어요.</h3>}
     </StyledIngredientList>
   );
 }
@@ -21,6 +34,14 @@ const StyledIngredientList = styled.div`
     font-weight: 500;
   }
 
+  h3 {
+    font-size: 1.2rem;
+    line-height: 2rem;
+    margin-top: 3rem;
+    word-break: keep-all;
+    color: #939aa5;
+  }
+
   ul {
     display: flex;
     flex-wrap: wrap;
@@ -31,7 +52,15 @@ const StyledIngredientList = styled.div`
       border-radius: 2rem;
       padding: 1rem;
       font-size: 1.4rem;
-      line-height: 1.4rem;
+      display: flex;
+      align-items: center;
+
+      button {
+        width: 1.8rem;
+        height: 1.8rem;
+        background: no-repeat center/cover url(${icDelete});
+        margin-left: 0.5rem;
+      }
     }
   }
 `;
