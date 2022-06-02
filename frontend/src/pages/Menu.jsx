@@ -1,41 +1,52 @@
+import { useEffect, useState } from 'react';
 import { useLocation } from 'react-router-dom';
+import Lottie from 'lottie-react';
 import styled from 'styled-components';
 import Header from 'components/common/Header';
 import recipe from 'assets/data/recipe';
-import { icNoImage } from 'assets';
+import { icNoImage, lottieNoResult } from 'assets';
 
 function Menu() {
   const location = useLocation();
   const { ingredientList } = location.state;
-  console.log(ingredientList);
+  const [searchedList, setSearchedList] = useState([]);
+
+  useEffect(() => {
+    ingredientList.forEach((element) => {
+      setSearchedList(recipe.filter((item) => item.ingredient.includes(element)));
+    });
+  }, []);
 
   return (
     <StyledMenu>
       <Header />
-      <h1>
-        내가 가진 재료로
-        <br />
-        이런 메뉴들을 만들 수 있어요
-      </h1>
-      <StyledImgList>
-        {recipe.map(({ id, image, title, ingredient }) => (
-          <li key={id}>
-            <img src={image[image.length - 1] ?? icNoImage} />
-            <div>
+      <h1>재료 기반 메뉴 추천</h1>
+      {searchedList.length ? (
+        <StyledImgList>
+          {searchedList.map(({ id, image, title, ingredient }) => (
+            <li key={id}>
+              <img src={image[image.length - 1] ?? icNoImage} />
               <div>
-                <span>[ 추천 레시피 ]</span>
-                <br />
-                {title}
+                <div>
+                  <span>[ 추천 레시피 ]</span>
+                  <br />
+                  {title}
+                </div>
+                <div>
+                  <span>[ 재료 ]</span>
+                  <br />
+                  <StyledInformation>{ingredient.join(', ')}</StyledInformation>
+                </div>
               </div>
-              <div>
-                <span>[ 재료 ]</span>
-                <br />
-                <StyledInformation>{ingredient.join(', ')}</StyledInformation>
-              </div>
-            </div>
-          </li>
-        ))}
-      </StyledImgList>
+            </li>
+          ))}
+        </StyledImgList>
+      ) : (
+        <StyledNoMenu>
+          {ingredientList.join(', ')}로 만들 수 있는 메뉴가 없어요.
+          <Lottie animationData={lottieNoResult} />
+        </StyledNoMenu>
+      )}
     </StyledMenu>
   );
 }
@@ -43,6 +54,9 @@ function Menu() {
 export default Menu;
 
 const StyledMenu = styled.div`
+  width: 100%;
+  min-height: calc(100vh - 4rem);
+
   h1 {
     margin-bottom: 2rem;
     font-size: 2rem;
@@ -92,4 +106,9 @@ const StyledInformation = styled.span`
   display: -webkit-box;
   -webkit-line-clamp: 2;
   -webkit-box-orient: vertical;
+`;
+
+const StyledNoMenu = styled.div`
+  font-size: 1.6rem;
+  line-height: 160%;
 `;
