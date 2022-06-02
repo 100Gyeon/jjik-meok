@@ -1,9 +1,9 @@
 import { useState, useRef } from 'react';
+import styled from 'styled-components';
 import { HashLoader } from 'react-spinners';
 import { createWorker } from 'tesseract.js';
 import Cropper from 'react-cropper';
 import 'cropperjs/dist/cropper.css';
-import styled from 'styled-components';
 import Header from 'components/common/Header';
 import IngredientList from 'components/common/IngredientList';
 
@@ -14,6 +14,7 @@ function Receipt() {
   const [croppedImage, setCroppedImage] = useState(null);
   const [resultList, setResultList] = useState(null);
   const [loading, setLoading] = useState(false);
+  const [isVisible, setIsVisible] = useState(true);
 
   const convertImageToText = async () => {
     if (!croppedImage) return;
@@ -36,7 +37,20 @@ function Receipt() {
     <StyledReceipt>
       <Header />
       <h1>영수증에서 재료를 찾아볼까요?</h1>
-      <input type="file" accept="image/*" onChange={(e) => setReceiptImage(URL.createObjectURL(e.target.files[0]))} />
+      {isVisible && (
+        <>
+          <label htmlFor="receipt-input">사진 가져오기</label>
+          <input
+            type="file"
+            id="receipt-input"
+            accept="image/*"
+            onChange={(e) => {
+              setReceiptImage(URL.createObjectURL(e.target.files[0]));
+              setIsVisible(false);
+            }}
+          />
+        </>
+      )}
       {receiptImage && <Cropper src={receiptImage} crop={onCrop} ref={cropperRef} />}
       {croppedImage && (
         <button onClick={() => convertImageToText()} disabled={loading}>
@@ -70,12 +84,18 @@ const StyledReceipt = styled.div`
     margin-bottom: 2rem;
   }
 
+  & > input {
+    display: none;
+  }
+
   & > img {
     width: 100%;
     margin-bottom: 2rem;
   }
 
-  & > button {
+  & > button,
+  label {
+    display: block;
     margin: 2rem 0;
     width: 100%;
     padding: 1.8rem 0;
@@ -83,6 +103,8 @@ const StyledReceipt = styled.div`
     background-color: #3182f7;
     color: #fff;
     font-size: 1.4rem;
+    text-align: center;
+    cursor: pointer;
   }
 
   button:disabled {

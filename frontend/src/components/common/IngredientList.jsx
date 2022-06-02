@@ -9,7 +9,7 @@ function IngredientList({ list }) {
   return (
     <StyledIngredientList>
       <h2>내가 가진 재료</h2>
-      {finalList.length > 0 && <h3>* 원하지 않거나 인식이 부정확한 재료는 x 버튼을 눌러 삭제할 수 있어요.</h3>}
+      {finalList.length > 0 && <h3>원하지 않거나 인식이 부정확한 재료는 x 버튼을 눌러 삭제할 수 있어요.</h3>}
       <ul>
         {finalList.length ? (
           finalList.map((item, idx) => (

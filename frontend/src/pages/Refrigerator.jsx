@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
+import styled from 'styled-components';
 import * as tmImage from '@teachablemachine/image';
 import { HashLoader } from 'react-spinners';
 import Header from 'components/common/Header';
-import styled from 'styled-components';
 import IngredientList from 'components/common/IngredientList';
 
 function Refrigerator() {
@@ -47,7 +47,8 @@ function Refrigerator() {
         재료를 찾아볼까요?
       </h1>
       <div>
-        <input onChange={handleChange} type="file" accept="image/*" />
+        <label htmlFor="refrigerator-input">사진 가져오기</label>
+        <input type="file" id="refrigerator-input" accept="image/*" onChange={handleChange} />
         {file && <img id="userImage" src={file} />}
       </div>
       {loading ? (
@@ -74,6 +75,23 @@ const StyledRefrigerator = styled.div`
     font-size: 2rem;
     line-height: 140%;
     margin-bottom: 2rem;
+  }
+
+  label {
+    display: block;
+    margin: 2rem 0;
+    width: 100%;
+    padding: 1.8rem 0;
+    border-radius: 1.6rem;
+    background-color: #3182f7;
+    color: #fff;
+    font-size: 1.4rem;
+    text-align: center;
+    cursor: pointer;
+  }
+
+  & > div > input {
+    display: none;
   }
 
   & > div > img {
