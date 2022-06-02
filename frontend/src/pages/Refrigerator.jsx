@@ -12,6 +12,7 @@ function Refrigerator() {
 
   const [file, setFile] = useState('');
   const [loading, setLoading] = useState(false);
+  const [isDisabled, setIsDisabled] = useState(false);
   const [ingredientList, setIngredientList] = useState([]);
 
   const predict = async () => {
@@ -21,6 +22,7 @@ function Refrigerator() {
 
     prediction.sort((a, b) => parseFloat(b.probability) - parseFloat(a.probability));
     setIngredientList(prediction.filter((ingredient) => ingredient.probability * 100 >= 30));
+    setIsDisabled(false);
     setLoading(false);
   };
 
@@ -28,6 +30,7 @@ function Refrigerator() {
     const reader = new FileReader();
     const targetFile = e.target.files[0];
 
+    setIsDisabled(true);
     setLoading(true);
     setIngredientList([]);
 
@@ -47,8 +50,16 @@ function Refrigerator() {
         재료를 찾아볼까요?
       </h1>
       <div>
-        <label htmlFor="refrigerator-input">사진 가져오기</label>
-        <input type="file" id="refrigerator-input" accept="image/*" onChange={handleChange} />
+        <StyledLabel htmlFor="refrigerator-input" isDisabled={isDisabled}>
+          사진 가져오기
+        </StyledLabel>
+        <input
+          type="file"
+          id="refrigerator-input"
+          accept="image/*"
+          disabled={isDisabled}
+          onChange={(e) => handleChange(e)}
+        />
         {file && <img id="userImage" src={file} />}
       </div>
       {loading ? (
@@ -77,20 +88,7 @@ const StyledRefrigerator = styled.div`
     margin-bottom: 2rem;
   }
 
-  label {
-    display: block;
-    margin: 2rem 0;
-    width: 100%;
-    padding: 1.8rem 0;
-    border-radius: 1.6rem;
-    background-color: #3182f7;
-    color: #fff;
-    font-size: 1.4rem;
-    text-align: center;
-    cursor: pointer;
-  }
-
-  & > div > input {
+  input {
     display: none;
   }
 
@@ -100,8 +98,23 @@ const StyledRefrigerator = styled.div`
   }
 `;
 
+const StyledLabel = styled.label`
+  display: block;
+  margin: 2rem 0;
+  width: 100%;
+  padding: 1.8rem 0;
+  border-radius: 1.6rem;
+  background-color: ${(props) => (props.isDisabled ? '#c1d6f3' : '#3182f7')};
+  color: #fff;
+  font-size: 1.4rem;
+  text-align: center;
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+`;
+
 const StyledResult = styled.div`
   font-size: 1.6rem;
+
   div {
     margin-bottom: 1rem;
   }
