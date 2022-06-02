@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { useLocation } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import Lottie from 'lottie-react';
 import styled from 'styled-components';
 import Header from 'components/common/Header';
@@ -10,6 +10,7 @@ function Menu() {
   const location = useLocation();
   const { ingredientList } = location.state;
   const [searchedList, setSearchedList] = useState([]);
+  const navigate = useNavigate();
 
   useEffect(() => {
     ingredientList.forEach((element) => {
@@ -24,11 +25,13 @@ function Menu() {
       {searchedList.length ? (
         <StyledImgList>
           {searchedList.map(({ id, image, title, ingredient }) => (
-            <li key={id}>
+            <li
+              key={id}
+              onClick={() => navigate(`recipe/${id}`, { state: searchedList.filter((item) => item.id === id) })}>
               <img src={image[image.length - 1] ?? icNoImage} />
               <div>
                 <div>
-                  <span>[ 추천 레시피 ]</span>
+                  <span>[ 관련 레시피 ]</span>
                   <br />
                   {title}
                 </div>
@@ -72,6 +75,7 @@ const StyledImgList = styled.ul`
 
   li {
     width: calc(50% - 1rem);
+    cursor: pointer;
     border-radius: 1rem;
     box-shadow: 0.4rem 0.4rem 2rem rgba(0, 0, 0, 0.15);
 

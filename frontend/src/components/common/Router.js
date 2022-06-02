@@ -17,7 +17,7 @@ function Router() {
         <Route path="/refrigerator" element={<Refrigerator />} />
         <Route path="/receipt" element={<Receipt />} />
         <Route path="/menu" element={<Menu />} />
-        <Route path="/recipe" element={<Recipe />} />
+        <Route path="/menu/recipe/:id" element={<Recipe />} />
         <Route path="/*" element={<Error404 />} />
       </Routes>
     </BrowserRouter>
