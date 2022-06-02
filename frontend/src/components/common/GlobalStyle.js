@@ -36,6 +36,7 @@ const GlobalStyle = createGlobalStyle`
     border: none;
     outline: none;
     background-color: transparent;
+    -webkit-tap-highlight-color : transparent;
   }
 
   a, a:visited {
