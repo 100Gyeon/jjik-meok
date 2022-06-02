@@ -5,7 +5,7 @@ import styled from 'styled-components';
 import Header from 'components/common/Header';
 import BottomSheet from 'components/common/BottomSheet';
 import recipe from 'assets/data/recipe';
-import { icNoImage, lottieNoResult } from 'assets';
+import { icFood, icNoImage, lottieNoResult } from 'assets';
 
 function Menu() {
   const navigate = useNavigate();
@@ -58,8 +58,20 @@ function Menu() {
       {isModalOpen && (
         <BottomSheet closeModal={() => setIsModalOpen(false)}>
           <StyledBottomSheetContent>
-            <button onClick={() => setIsModalOpen(false)}>아니오</button>
-            <a href="https://www.foodbank1377.org/donate/guide.do">기부할래요</a>
+            <h2>
+              지금 나에게 필요 없는 식재료,
+              <br />
+              누군가에게는 도움이 될 수 있습니다.
+            </h2>
+            <div>
+              <span>푸드뱅크</span>는 잉여식품을 기부받아 결식아동, 독거노인 등 저소득 소외계층에게 제공하고 있습니다.{' '}
+              <span>식재료를 기부</span>하고 이웃, 환경 사랑을 실천해 볼까요?
+              <img src={icFood} />
+            </div>
+            <StyledButtonContainer>
+              <button onClick={() => setIsModalOpen(false)}>괜찮아요</button>
+              <a href="https://www.foodbank1377.org/donate/guide.do">기부할래요</a>
+            </StyledButtonContainer>
           </StyledBottomSheetContent>
         </BottomSheet>
       )}
@@ -143,9 +155,38 @@ const StyledNoMenu = styled.div`
 `;
 
 const StyledBottomSheetContent = styled.div`
-  display: flex;
-  gap: 2rem;
   padding: 2rem;
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+
+  h2 {
+    line-height: 140%;
+    font-size: 1.8rem;
+    font-weight: 500;
+  }
+
+  div {
+    font-size: 1.4rem;
+    line-height: 140%;
+    word-break: keep-all;
+
+    span {
+      color: #3182f7;
+      font-weight: 500;
+    }
+
+    img {
+      display: block;
+      margin: 0 auto;
+      width: 20rem;
+    }
+  }
+`;
+
+const StyledButtonContainer = styled.div`
+  display: flex;
+  justify-content: center;
 
   button,
   a {
@@ -154,17 +195,18 @@ const StyledBottomSheetContent = styled.div`
     border-radius: 1.4rem;
     font-size: 1.4rem;
     line-height: 140%;
-    text-align: center;
   }
 
   button {
     color: #575b5e;
     background-color: #e0e1e3;
+    margin-right: 2rem;
   }
 
   a,
   a:visited {
     color: #fff;
     background-color: #3182f7;
+    text-align: center;
   }
 `;

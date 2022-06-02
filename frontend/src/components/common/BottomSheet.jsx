@@ -41,8 +41,8 @@ const StyledBottomSheet = styled.div`
 `;
 
 const StyledBottomSheetHeader = styled.div`
-  height: 4.4rem;
-  padding: 1.1rem 2.2rem 0.9rem 2.2rem;
+  margin-top: 2rem;
+  padding: 0 2rem;
   display: flex;
   align-items: center;
 
