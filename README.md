@@ -6,7 +6,7 @@
 - 서비스 한 줄 소개 : 사진을 **찍**기만 하면, 무슨 메뉴를 만들어 **먹**으면 좋을지 추천해 주는 웹 서비스
 - 서비스 배포 링크 : https://jjik-meok.netlify.app/
 
-![preview](https://user-images.githubusercontent.com/58380158/172027636-ef79345c-dbf3-40ed-8b13-44dd41863ee0.png)
+![](https://user-images.githubusercontent.com/58380158/172028845-e98db5ca-d1bd-4ea2-ac79-de1dd503d270.png)
 
 ## 2. 주요 기능
 - **식재료 인식** : 사용자가 카메라로 촬영하거나 갤러리에서 선택한 이미지에 어떤 식재료가 있는지 인식한다.
