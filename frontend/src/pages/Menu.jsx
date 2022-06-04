@@ -51,7 +51,9 @@ function Menu() {
         </>
       ) : (
         <StyledNoMenu>
-          {ingredientList.join(', ')}로 만들 수 있는 메뉴가 없어요.
+          인식한 재료를 활용해
+          <br />
+          만들 수 있는 메뉴가 없어요.
           <Lottie animationData={lottieNoResult} />
         </StyledNoMenu>
       )}
@@ -128,6 +130,7 @@ const StyledImgList = styled.ul`
       padding: 1rem;
       font-size: 1.4rem;
       line-height: 140%;
+      overflow: hidden;
 
       div:last-child {
         margin-top: 1rem;
@@ -150,6 +153,13 @@ const StyledInformation = styled.span`
 `;
 
 const StyledNoMenu = styled.div`
+  width: 100%;
+  padding: 2rem;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  text-align: center;
   font-size: 1.6rem;
   line-height: 160%;
 `;
