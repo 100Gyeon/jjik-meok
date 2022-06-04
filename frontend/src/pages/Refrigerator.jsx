@@ -6,7 +6,7 @@ import Header from 'components/common/Header';
 import IngredientList from 'components/common/IngredientList';
 
 function Refrigerator() {
-  const URL = 'https://teachablemachine.withgoogle.com/models/N3-pwXGHa/';
+  const URL = 'https://teachablemachine.withgoogle.com/models/fzAZtIhe6/';
   const modelURL = URL + 'model.json';
   const metadataURL = URL + 'metadata.json';
 
@@ -21,7 +21,7 @@ function Refrigerator() {
     const prediction = await model.predict(tempImage, false);
 
     prediction.sort((a, b) => parseFloat(b.probability) - parseFloat(a.probability));
-    setIngredientList(prediction.filter((ingredient) => ingredient.probability * 100 >= 30));
+    setIngredientList(prediction.filter((ingredient) => ingredient.probability * 100 >= 1));
     setIsDisabled(false);
     setLoading(false);
   };
