@@ -80,6 +80,7 @@ function Refrigerator() {
 export default Refrigerator;
 
 const StyledRefrigerator = styled.div`
+  position: relative;
   min-height: calc(100vh - 4rem);
 
   h1 {
@@ -115,7 +116,7 @@ const StyledLabel = styled.label`
 const StyledResult = styled.div`
   font-size: 1.6rem;
 
-  div {
+  & > div {
     margin-bottom: 1rem;
   }
 `;

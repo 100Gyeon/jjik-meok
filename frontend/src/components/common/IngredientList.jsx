@@ -1,10 +1,12 @@
 import { useState } from 'react';
 import styled from 'styled-components';
 import UserChoice from './UserChoice';
-import { icDelete } from 'assets';
+import BottomSheet from './BottomSheet';
+import { icDelete, icHands } from 'assets';
 
 function IngredientList({ list }) {
   const [finalList, setFinalList] = useState(list);
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
   return (
     <StyledIngredientList>
@@ -28,7 +30,26 @@ function IngredientList({ list }) {
           <div>재료를 인식하지 못했어요</div>
         )}
       </ul>
-      {finalList.length > 0 && <UserChoice ingredientList={finalList} />}
+      {finalList.length > 0 && <UserChoice ingredientList={finalList} setIsModalOpen={setIsModalOpen} />}
+      {isModalOpen && (
+        <BottomSheet closeModal={() => setIsModalOpen(false)}>
+          <StyledBottomSheetContent>
+            다양한 요인으로 인해
+            <br />
+            재료를 제대로 인식하지 못할 수 있어요.
+            <img src={icHands} />
+            <div>
+              <span>
+                한 번에 인식하려는 재료가 너무 많지 않은지,
+                <br />
+                사진이 흔들리지 않았는지
+              </span>
+              <br />
+              확인 후 다시 시도해 주세요.
+            </div>
+          </StyledBottomSheetContent>
+        </BottomSheet>
+      )}
     </StyledIngredientList>
   );
 }
@@ -77,6 +98,35 @@ const StyledIngredientList = styled.div`
 
     div {
       margin-top: 2rem;
+    }
+  }
+`;
+
+const StyledBottomSheetContent = styled.div`
+  padding: 2rem;
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+  text-align: center;
+  line-height: 140%;
+  font-size: 1.8rem;
+  font-weight: 500;
+
+  img {
+    display: block;
+    margin: 0 auto;
+    width: 20rem;
+  }
+
+  & > div {
+    font-size: 1.4rem;
+    line-height: 140%;
+    word-break: keep-all;
+    margin-bottom: 2rem;
+
+    span {
+      color: #3182f7;
+      font-weight: 500;
     }
   }
 `;

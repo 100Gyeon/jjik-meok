@@ -7,5 +7,6 @@ export { default as icArrowLeft } from './icons/arrow_left.svg';
 export { default as icDelete } from './icons/delete.svg';
 export { default as icNoImage } from './icons/no_image.png';
 export { default as icFood } from './icons/food.png';
+export { default as icHands } from './icons/hands.png';
 export { default as lottieChoice } from './lottie/choice.json';
 export { default as lottieNoResult } from './lottie/no_result.json';

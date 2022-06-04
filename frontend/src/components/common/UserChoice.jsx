@@ -2,10 +2,10 @@ import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 import { icArrowRight, icEyes, icHit } from 'assets';
 
-function UserChoice({ ingredientList }) {
+function UserChoice({ ingredientList, setIsModalOpen }) {
   return (
     <StyledUserChoice>
-      <div>
+      <div onClick={() => setIsModalOpen(true)}>
         <div>
           <img src={icEyes} />
         </div>

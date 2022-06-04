@@ -155,7 +155,7 @@ const StyledInformation = styled.span`
 const StyledNoMenu = styled.div`
   width: 100%;
   padding: 2rem;
-  position: fixed;
+  position: absolute;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);

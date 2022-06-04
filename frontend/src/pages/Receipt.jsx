@@ -76,6 +76,7 @@ function Receipt() {
 export default Receipt;
 
 const StyledReceipt = styled.div`
+  position: relative;
   width: 100%;
   min-height: calc(100vh - 4rem);
 
